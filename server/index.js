@@ -12,6 +12,11 @@ mongoose.connect(
 );
 
 // Create
+app.post('/addItem', (req, res) => {
+    const item = req.body;
+    const newItem = new ToDoItemModel(item);
+    res.json(item);
+});
 
 // Read
 app.get('/getList', (req, res) => {
