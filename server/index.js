@@ -30,11 +30,22 @@ app.get('/getList', (req, res) => {
     });
 });
 // Update
+app.put('/update', (req, res) => {
+    const item = req.body;
+    const updatedItem = ToDoItemModel(item);
 
+    ToDoItemModel.updateOne({_id: req.body._id}, {item: updatedItem.item, dateCreated: updatedItem.dateCreated, dateDue: updatedItem.dateDue, done: updatedItem.done}, (err, result) => {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(updatedItem);
+        }
+    }); 
+});
 
 // Delete
 app.delete("/removeTask", (req, res) => {
-    ToDoItemModel.remove({_id: req.body.id}, (err, result) => {
+    ToDoItemModel.deleteOne({_id: req.body.id}, (err, result) => {
         if (err) {
             res.json(err);
         } else {
