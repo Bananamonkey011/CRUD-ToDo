@@ -2,18 +2,27 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const ToDoList = require('./models/todoitems');
+const ToDoItemModel = require('./models/todoitems');
 
 app.use(express.json());
 app.use(cors());
 
 mongoose.connect(
-    "mongodb+srv://user123:Password123@cluster0.tjfyc2u.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://user123:Password123@cluster0.tjfyc2u.mongodb.net/ToDoList?retryWrites=true&w=majority"
 );
 
 // Create
 
 // Read
+app.get('/getList', (req, res) => {
+    ToDoList.find({}, (err, result) => {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+    });
+});
 
 // Update
 
