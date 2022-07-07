@@ -21,5 +21,5 @@ const todoitemsSchema = new mongoose.Schema(
     }
 )
 
-const ToDoList = mongoose.model('ToDoList', todoitemsSchema);
-module.exports = ToDoList;
+const ToDoItemModel = mongoose.model('todolist', todoitemsSchema);
+module.exports = ToDoItemModel;

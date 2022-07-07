@@ -15,12 +15,26 @@ mongoose.connect(
 app.post('/addItem', (req, res) => {
     const item = req.body;
     const newItem = new ToDoItemModel(item);
+    newItem.save()
     res.json(item);
 });
 
 // Read
 app.get('/getList', (req, res) => {
-    ToDoList.find({}, (err, result) => {
+    ToDoItemModel.find({}, (err, result) => {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+    });
+});
+// Update
+
+
+// Delete
+app.delete("/removeTask", (req, res) => {
+    ToDoItemModel.remove({_id: req.body.id}, (err, result) => {
         if (err) {
             res.json(err);
         } else {
@@ -29,9 +43,6 @@ app.get('/getList', (req, res) => {
     });
 });
 
-// Update
-
-// Delete
 
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
