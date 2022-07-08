@@ -12,10 +12,10 @@ mongoose.connect(
 );
 
 // Create
-app.post('/addItem', (req, res) => {
+app.post('/addItem', async (req, res) => {
     const item = req.body;
     const newItem = new ToDoItemModel(item);
-    newItem.save()
+    await newItem.save()
     res.json(item);
 });
 
@@ -45,7 +45,8 @@ app.put('/update', (req, res) => {
 
 // Delete
 app.delete("/removeTask", (req, res) => {
-    ToDoItemModel.deleteOne({_id: req.body.id}, (err, result) => {
+    // console.log(req.body);
+    ToDoItemModel.deleteOne({_id: req.body._id}, (err, result) => {
         if (err) {
             res.json(err);
         } else {
