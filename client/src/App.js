@@ -20,6 +20,20 @@ function App() {
       <hr/>
       <AddItem updateList={setList}/>
       <hr/>
+      {/* <hr/> */}
+      <div style={{width: "80vw", margin: "auto"}}>
+			<div style = {{ width: "100%", display: "inline-grid", gridTemplateColumns: "8fr 2fr 2fr 1fr 1fr 1fr", alignItems: "center", justifyItems: "center"}}>
+				<h4 style = {{}}>ITEM</h4>
+				<h4 style = {{}}>DUE</h4>
+				<h4 style = {{}}>CREATED ON</h4>
+				<h4 style = {{}}>DONE?</h4>
+				<h4 style = {{}}>DELETE</h4>
+				<h4 style = {{}}>UPDATE</h4>
+			</div>
+			{/* <hr /> */}
+		</div>
+
+
 			{list.map((item) => {
         return (
           <div key={item._id} >
