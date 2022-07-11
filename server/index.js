@@ -7,10 +7,15 @@ const ToDoItemModel = require('./models/todoitems');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(
-    "mongodb+srv://user123:Password123@cluster0.tjfyc2u.mongodb.net/ToDoList?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.MONGODB_URI);
 
+//default
+app.get('/', (req, res) => {
+    res.send("Hello, World!");
+});
+app.get('/test', (req, res) => {
+    res.json({text: "Hello, World!"});
+});
 // Create
 app.post('/addItem', async (req, res) => {
     const item = req.body;
@@ -56,6 +61,6 @@ app.delete("/removeTask", (req, res) => {
 });
 
 
-app.listen(3001, () => {
+app.listen(process.env.PORT, () => {
     console.log("Server is running on port 3001");
 });

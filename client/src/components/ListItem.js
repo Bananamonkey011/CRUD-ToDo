@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import DisplayListItem from "./DisplayListItem";
@@ -9,26 +8,22 @@ const ListItem = ({ item, updateList }) => {
 
 	if (updating) {
 		return (
-			<div
-				style={{
-					width: "80vw",
-					border: "1px solid black",
-					margin: "auto",
-				}}
-			>
-					<UpdateForm item={item} updateList={updateList} setUpdating={setUpdating} />
+			<div className="list-item-container-container">
+				<UpdateForm
+					item={item}
+					updateList={updateList}
+					setUpdating={setUpdating}
+				/>
 			</div>
 		);
 	} else {
 		return (
-			<div
-				style={{
-					width: "80vw",
-					border: "1px solid black",
-					margin: "auto",
-				}}
-			>
-					<DisplayListItem item={item} updateList={updateList} setUpdating={setUpdating}/>
+			<div className="list-item-container-container">
+				<DisplayListItem
+					item={item}
+					updateList={updateList}
+					setUpdating={setUpdating}
+				/>
 			</div>
 		);
 	}

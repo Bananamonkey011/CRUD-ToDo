@@ -9,18 +9,22 @@ const ListItem = ({ item, updateList, setUpdating }) => {
 	const handleChange = async () => {
 		// console.log("checked");
 		item.done = !isDone;
-		await axios.put("http://localhost:3001/update", item);
+		await axios.put("https://manan-to-do-list.herokuapp.com/update", item);
 		setIsDone(!isDone);
 	};
 
 	const deleteItem = async () => {
 		console.log(item);
 		await axios
-			.delete("http://localhost:3001/removeTask", { data: item })
+			.delete("https://manan-to-do-list.herokuapp.com/removeTask", {
+				data: item,
+			})
 			.then(() => {
-				axios.get("http://localhost:3001/getList").then((response) => {
-					updateList(response.data);
-				});
+				axios
+					.get("https://manan-to-do-list.herokuapp.com/getList")
+					.then((response) => {
+						updateList(response.data);
+					});
 			});
 	};
 
@@ -32,49 +36,44 @@ const ListItem = ({ item, updateList, setUpdating }) => {
 	const due = new Date(item.dateDue);
 	return (
 		<>
-			<div
-				style={{
-					width: "100%",
-					display: "inline-grid",
-					gridTemplateColumns: "8fr 2fr 2fr 1fr 1fr 1fr",
-					alignItems: "center",
-					justifyItems: "center",
-				}}
-			>
-				<h2 style={{ textAlign: "left" }}>{item.item}</h2>
-				<h5 style={{ display: "inline-block" }}>
-					{due > 0 && due.toLocaleDateString()}
-				</h5>
-				<h5 style={{ display: "inline-block" }}>
-					{" "}
-					{created.toLocaleDateString()}
-				</h5>
-				<input
-					style={{ display: "inline-block" }}
-					type="checkbox"
-					checked={isDone}
-					onChange={handleChange}
-				/>
-				<button
-					onClick={deleteItem}
-					style={{ display: "inline-block" }}
-				>
+			<div className="list-item-container" style={{}}>
+				<h2 className={"item"}>{item.item}</h2>
+
+				<div>
+					<label for="due" className="label">Due:</label>
+					<h5 name="due" id="due" className={"date"}>
+						{due > 0 && due.toLocaleDateString()}
+					</h5>
+				</div>
+
+				<div>
+					<label for="created" className="label">Created:</label>
+					<h5 name="created" id="created"className={"date"}> {created.toLocaleDateString()}</h5>
+				</div>
+
+				<div>
+					<label className="label" for="checkbox">
+						{" "}
+						Done:
+					</label>
+					<input
+						className="checkbox"
+						name="checkbox"
+						id="checkbox"
+						type="checkbox"
+						checked={isDone}
+						onChange={handleChange}
+					/>
+				</div>
+
+				<button className="btn btn-delete" onClick={deleteItem}>
 					delete
 				</button>
-				<button
-					onClick={updateItem}
-					style={{ display: "inline-block" }}
-				>
+				
+				<button className="btn btn-update" onClick={updateItem}>
 					Update
 				</button>
-				{/* <button
-					onClick={deleteItem}
-					style={{ display: "inline-block" }}
-				>
-					update
-				</button> */}
 			</div>
-			{/* <hr /> */}
 		</>
 	);
 };
