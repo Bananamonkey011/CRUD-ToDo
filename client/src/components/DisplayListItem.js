@@ -30,7 +30,6 @@ const ListItem = ({ item, updateList, setUpdating }) => {
 
 	const created = new Date(item.dateCreated);
 	const due = new Date(item.dateDue);
-
 	return (
 		<>
 			<div

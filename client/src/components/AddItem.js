@@ -25,8 +25,14 @@ const AddItem = ({ updateList }) => {
 	};
 
 	const handleDateChange = (e) => {
-		console.log(e.target.value);
-		setDateDue(e.target.value);
+        const date = new Date()
+        date.setDate(e.target.value.split("-")[2]);
+        date.setMonth(e.target.value.split("-")[1] - 1);
+        date.setFullYear(e.target.value.split("-")[0]);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+		setDateDue(date.toUTCString());
 	};
 
 	return (
@@ -45,7 +51,7 @@ const AddItem = ({ updateList }) => {
 				}}
 			/>
 			<input
-				type="Date"
+				type="date"
 				onChange={(e) => {
 					handleDateChange(e);
 				}}

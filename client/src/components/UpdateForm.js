@@ -11,7 +11,15 @@ const UpdateForm = ({ item, updateList, setUpdating }) => {
 	};
 
 	const handleDueChange = (e) => {
-		setDue(e.target.value);
+		const date = new Date()
+        date.setDate(e.target.value.split("-")[2]);
+        date.setMonth(e.target.value.split("-")[1] - 1);
+        date.setFullYear(e.target.value.split("-")[0]);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        // console.log(date)
+		setDue(date.toUTCString());
 	};
 
     const handleCancel = () => {
@@ -24,7 +32,8 @@ const UpdateForm = ({ item, updateList, setUpdating }) => {
         await axios.put("http://localhost:3001/update", item);
         setUpdating(false);
     };
-
+    // console.log(new Date(new Date(item.dateDue).toLocaleDateString()).toISOString());
+    const date = new Date(due);
 	return (
 		<>
 			<div
@@ -51,7 +60,7 @@ const UpdateForm = ({ item, updateList, setUpdating }) => {
 				<input
 					type="date"
 					onChange={(e) => handleDueChange(e)}
-					defaultValue={due && due.substring(0, 10)}
+					defaultValue={new Date(new Date(item.dateDue).toLocaleDateString()).toISOString().substring(0, 10)}
                     style={{
 						width: "auto",
 						border: "none",
